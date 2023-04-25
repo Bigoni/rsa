@@ -39,7 +39,7 @@ class schwabAPI:
                     account_id=key,  # account number
                     # If dry_run=True, we won't place the order, we'll just verify it.
                     dry_run=False
-                )           
+                )
             print("The order verification was " +
                   "successful" if success else "unsuccessful")
             print("The order verification produced the following messages: ")

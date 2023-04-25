@@ -45,3 +45,4 @@ for ticker in tickers:
         tradier.order(ticker, True)
     else:
         tradier.order(ticker, False)
+

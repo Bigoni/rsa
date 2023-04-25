@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 # this file is just for testing as I implement new brokers, feel free to disregard
 
+=======
+>>>>>>> 02df004c5a1ab209290af6c7d194732da5a23cc6
 from tradier import tradierAPI
 import sys
 
@@ -24,6 +27,7 @@ for i in range(2, len(sys.argv)):
     tickers.append(str(sys.argv[i]))
 
 tradier = tradierAPI()
+<<<<<<< HEAD
 for ticker in tickers:
     tradier.get_val(ticker)
 for ticker in tickers:
@@ -31,3 +35,10 @@ for ticker in tickers:
         tradier.order(ticker, True)
     else:
         tradier.order(ticker, False)
+=======
+# for ticker in tickers:
+# tradier.get_val(ticker)
+
+for ticker in tickers:
+    tradier.order(ticker)
+>>>>>>> 02df004c5a1ab209290af6c7d194732da5a23cc6
