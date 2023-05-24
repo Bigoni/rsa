@@ -1,5 +1,7 @@
 from tradier import tradierAPI
 from schwab import schwabAPI
+import asyncio
+import firstrade
 import sys
 
 if len(sys.argv) <= 2:
@@ -46,3 +48,10 @@ for ticker in tickers:
     else:
         tradier.order(ticker, False)
 
+print("Ordering on Firstrade")
+print("Still testing this one so be careful! Double check on Firstrade everything is correct")
+#I think headful is working, need to test headless
+if (option == "buy"):
+    asyncio.run(firstrade.login_firstrade(tickers, True))
+else:
+    asyncio.run(firstrade.login_firstrade(tickers, False))

@@ -5,7 +5,6 @@ from secrets import secrets
 
 class schwabAPI:
     def __init__(self):
-        # authenticate with the Tradier API
         self.api = Schwab()
         # Login using playwright
         print("Logging into Schwab")
