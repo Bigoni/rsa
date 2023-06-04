@@ -1,45 +1,58 @@
 from secrets import secrets
-from PyTradier.pytradier import Tradier
-
-# tradier = Tradier(token=secrets.get('tradier_token'), account_id=secrets.get('tradier_account_id'), endpoint='brokerage')
-
-# git submodule add https://github.com/rleonard21/PyTradier.git PyTradier
+import requests
+import json
 
 
 class tradierAPI:
-    def __init__(self):
-        # authenticate with the Tradier API
-        self.tradier = Tradier(token=secrets.get('tradier_token'), account_id=secrets.get(
-            'tradier_account_id'), endpoint='brokerage')
+    def get_auth(self):
+        response = requests.get('https://api.tradier.com/v1/oauth/authorize',
+                                params={'client_id': secrets.tradier_token,
+                                        'scope': 'read, write, trade, market',
+                                        'state': 'rsa_gen_1234'}
+                                )
+        json_response = response.json()
 
     def get_val(self, ticker):
-        # create an instance of the stock class with ticker we want to buy
-        stocks = self.tradier.stock(ticker)
-        # and print the current ask price:
-        print("Ask: " + str(stocks.ask()))
-        print("Bid: " + str(stocks.bid()))
+        url = "{}markets/quotes".format("https://api.tradier.com/v1/")
 
-    def order(self, ticker):
-        # orders = self.tradier.account().orders()
-        # order = self.tradier.order().create(duration="day", side="buy", quantity=1, _type="market", price=None, stop=None,
-        #       option_symbol=None, symbol=ticker, preview=False)
-        # self.tradier.account().orders()
-        """ Submit an order.
-        :param limit_price: The limit price, or list of limit prices
-            for multileg orders. Required for any limit or stop-limit
-            order legs and for debit or credit orders.
-        :param stop_price: The stop price, or list of stop prices for
-            multileg orders. Required only for stop and stop-limit
-            order legs.
-        :param tag: User identifier for this order, maximum length of
-            255 characters containing only letters, numbers and ``-``.
-        :param option: Overrides deduction of order kind (option vs
-            equity) based on the symbol. Only ever necessary if orders
-            are not being correctly identified automatically.
-        """
-        self.tradier.Order.submit_order(order_class="equity", symbol="ticker", side="buy",
-                                        qty=1, order_type="market", time_in_force="day",)
+        headers = {
+            'Authorization': 'Bearer {}'.format(secrets.get('tradier_token')),
+            'Accept': 'application/json'
+        }
 
-    def validateAccount(self):
-        account = tradier.account()
-        print(account.balance().cash_available())
+        response = requests.get(url,
+                                params={'symbols': ticker},
+                                headers=headers
+                                )
+
+        fmt = (response.json())
+        print(fmt.get('quotes').get('quote').get('symbol') +
+              " Bid: " + str(fmt.get('quotes').get('quote').get('bid')))
+        print(fmt.get('quotes').get('quote').get('symbol') +
+              " Ask: " + str(fmt.get('quotes').get('quote').get('ask')))
+
+    def order(self, ticker, buy):
+        #TODO change to iterate across all accounts once account #2 is funded
+        url = '{}accounts/{}/orders'.format(
+            "https://api.tradier.com/v1/", secrets.get('tradier_account_id'))
+
+        headers = {
+            'Authorization': 'Bearer {}'.format(secrets.get('tradier_token')),
+            'Accept': 'application/json'
+        }
+        if (buy == True):
+            print("Buying " + ticker + " in account " +
+                  secrets.get('tradier_account_id') + " on Tradier")
+            response = requests.post(url,
+                                     data={'class': 'equity', 'symbol': ticker,
+                                           'side': 'buy', 'quantity': '1', 'type': 'market', 'duration': 'day'},
+                                     headers=headers
+                                     )
+        else:
+            print("Selling " + ticker + " in account " +
+                  secrets.get('tradier_account_id') + " on Tradier")
+            response = requests.post(url,
+                                     data={'class': 'equity', 'symbol': ticker,
+                                           'side': 'sell', 'quantity': '1', 'type': 'market', 'duration': 'day'},
+                                     headers=headers
+                                     )
