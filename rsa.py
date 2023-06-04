@@ -1,5 +1,7 @@
 from tradier import tradierAPI
 from schwab import schwabAPI
+from tasty import tasty
+import robinhood
 import asyncio
 import firstrade
 import sys
@@ -22,7 +24,7 @@ else:
     option = "sell"
 tickers = []
 for i in range(2, len(sys.argv)):
-    tickers.append(str(sys.argv[i]))
+    tickers.append(str(sys.argv[i]).upper())
 
 tradier = tradierAPI()
 for ticker in tickers:
@@ -55,3 +57,23 @@ if (option == "buy"):
     asyncio.run(firstrade.login_firstrade(tickers, True))
 else:
     asyncio.run(firstrade.login_firstrade(tickers, False))
+
+'''
+print("Ordering on TastyTrade")
+print("I havent tested this yet but fuck it")
+tt = tasty()
+if (option == "buy"):
+    tt.order(tickers, True)
+else:
+    tt.order(tickers, False)
+
+print("Ordering on Robinhood")   
+print("Still testing so double check on Robinhood")
+rh = robinhood.robinhood_init()
+asyncio.run(robinhood.robinhood_holdings(rh))
+if (option == "buy"):
+    for ticker in tickers: 
+        asyncio.run(robinhood.robinhood_transaction(rh, option, ticker, 1, False))
+else:
+    print("Skipping sell on rh because it takes an extra few days to appear")
+'''

@@ -15,6 +15,8 @@ class tasty:
         session = Session(username, password)
         self.accounts = Account.get_accounts(session)
         account = Account.get_accounts(session)[0]
+        for account in self.accounts:
+            print(account.account_number)
         positions = account.get_positions(session)
         #print(positions[0])
 

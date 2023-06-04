@@ -1,8 +1,12 @@
 # this file is just for testing as I implement new brokers, feel free to disregard
 
 from tradier import tradierAPI
+from tasty import tasty
 import sys
+import robinhood
+import asyncio
 
+'''
 if len(sys.argv) <= 2:
     print("incorrect usage ")
     print("Usage:python rsa.py (b/s) Ticker1 Ticker2 ...")
@@ -31,3 +35,12 @@ for ticker in tickers:
         tradier.order(ticker, True)
     else:
         tradier.order(ticker, False)
+'''
+
+'''
+rh = robinhood.robinhood_init()
+asyncio.run(robinhood.robinhood_holdings(rh))
+asyncio.run(robinhood.robinhood_transaction(rh, "buy", "ACOR", 1, False))
+'''
+
+tt = tasty()

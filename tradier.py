@@ -32,6 +32,7 @@ class tradierAPI:
               " Ask: " + str(fmt.get('quotes').get('quote').get('ask')))
 
     def order(self, ticker, buy):
+        #TODO change to iterate across all accounts once account #2 is funded
         url = '{}accounts/{}/orders'.format(
             "https://api.tradier.com/v1/", secrets.get('tradier_account_id'))
 
