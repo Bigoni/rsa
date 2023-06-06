@@ -1,4 +1,4 @@
-from secrets import secrets
+from secrets import *
 import requests
 import json
 

@@ -1,15 +1,15 @@
-from secrets import secrets
-from secrets import firstrade_acccounts
+from config import *
 from firsttrade import urls
 import asyncio
 import pyotp
 from playwright.async_api import Playwright, async_playwright
 import time
 
-username = secrets.get('firsttrade_username')
-password = secrets.get('firsttrade_password')
-pin = secrets.get('firsttrade_pin')
-accounts = firstrade_acccounts
+
+username = secrets.get('firstrade_username')
+password = secrets.get('firstrade_password')
+pin = secrets.get('firstrade_pin')
+accounts = firstrade_accounts
 
 #TODO optimize the sleeps I use
 #I probably have like 10x the amount of sleeps I need haha

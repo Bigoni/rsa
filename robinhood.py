@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import robin_stocks.robinhood as r
-from secrets import secrets
-
-login = r.login(secrets.robinhood_username, secrets.robinhood_password)
-=======
 import sys
 import traceback
 import robin_stocks.robinhood as rh
@@ -12,7 +6,7 @@ import pprint
 import pyotp
 from dotenv import load_dotenv
 
-from secrets import secrets
+from secrets import *
 
 def robinhood_init():
     # Initialize .env file
@@ -142,4 +136,3 @@ async def robinhood_transaction(rh, action, stock, amount, DRY=True, ctx=None):
         print(f"Robinhood: Running in DRY mode. Transaction would've been: {action} {amount} of {stock}")
         if ctx:
             await ctx.send(f"Robinhood: Running in DRY mode. Transaction would've been: {action} {amount} of {stock}")
->>>>>>> feat/firsttrade

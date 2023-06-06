@@ -1,12 +1,9 @@
 from tradier import tradierAPI
 from schwab import schwabAPI
-<<<<<<< HEAD
-=======
 from tasty import tasty
 import robinhood
 import asyncio
 import firstrade
->>>>>>> feat/firsttrade
 import sys
 
 if len(sys.argv) <= 2:
@@ -27,11 +24,7 @@ else:
     option = "sell"
 tickers = []
 for i in range(2, len(sys.argv)):
-<<<<<<< HEAD
-    tickers.append(str(sys.argv[i]))
-=======
     tickers.append(str(sys.argv[i]).upper())
->>>>>>> feat/firsttrade
 
 tradier = tradierAPI()
 for ticker in tickers:
@@ -46,14 +39,6 @@ if cont not in {"Y", "y"}:
 schwab = schwabAPI()
 for ticker in tickers:
     if (option == "buy"):
-<<<<<<< HEAD
-        schwab.order(ticker)
-    else:
-        schwab.sell(ticker)
-
-# This dependency I used doesn't actually have this functionality lmao
-# tradier.order(ticker)
-=======
         schwab.order(ticker, True)
     else:
         schwab.order(ticker, False)
@@ -92,4 +77,3 @@ if (option == "buy"):
 else:
     print("Skipping sell on rh because it takes an extra few days to appear")
 '''
->>>>>>> feat/firsttrade
