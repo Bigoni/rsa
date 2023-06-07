@@ -18,10 +18,12 @@ if sys.argv[1] not in {"b", "B", "s", "S"}:
     print("First option must be either buy (b) or sell (s)")
     exit()
 option = ""
+buy = True
 if (sys.argv[1] in {"b", "B"}):
     option = "buy"
 else:
     option = "sell"
+    buy = False
 tickers = []
 for i in range(2, len(sys.argv)):
     tickers.append(str(sys.argv[i]).upper())
@@ -38,35 +40,23 @@ if cont not in {"Y", "y"}:
 
 schwab = schwabAPI()
 for ticker in tickers:
-    if (option == "buy"):
-        schwab.order(ticker, True)
-    else:
-        schwab.order(ticker, False)
+    schwab.order(ticker, buy)
 
 print("Ordering on Tradier")
 for ticker in tickers:
-    if (option == "buy"):
-        tradier.order(ticker, True)
-    else:
-        tradier.order(ticker, False)
+    tradier.order(ticker, buy)
 
 print("Ordering on Firstrade")
-print("Still testing this one so be careful! Double check on Firstrade everything is correct")
-#I think headful is working, need to test headless
-if (option == "buy"):
-    asyncio.run(firstrade.login_firstrade(tickers, True))
-else:
-    asyncio.run(firstrade.login_firstrade(tickers, False))
+print("Double check on Firstrade everything is correct!")
+asyncio.run(firstrade.login_firstrade(tickers, buy))
+
+print("Ordering on TastyTrade")
+print("Just starting to test this one :)")
+tt = tasty()
+tt.get_accounts()
+tt.order(tickers, buy)
 
 '''
-print("Ordering on TastyTrade")
-print("I havent tested this yet but fuck it")
-tt = tasty()
-if (option == "buy"):
-    tt.order(tickers, True)
-else:
-    tt.order(tickers, False)
-
 print("Ordering on Robinhood")   
 print("Still testing so double check on Robinhood")
 rh = robinhood.robinhood_init()

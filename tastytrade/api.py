@@ -1,8 +1,9 @@
 import json, requests
-import tastytrade.TTConfig
-import tastytrade.order
+import pyotp
+from .TTConfig import *
+from .order import *
 
-class TTApi:
+class Api:
     session_token: str = None
     remember_token: str = None
     streamer_token: str = None
@@ -90,7 +91,11 @@ class TTApi:
         }
 
         if self.tt_config.use_mfa is True:
-            mfa = input("MFA: ")
+            if self.tt_config.totp_secret == "":
+                mfa = input("MFA: ")
+            else:
+                #this is actually messed up slightly for now, need to contact support
+                mfa = str(pyotp.TOTP(self.tt_config.totp_secret).now())
             self.headers["X-Tastyworks-OTP"] = mfa
 
         response = self.__post("/sessions", body=body)
@@ -139,18 +144,18 @@ class TTApi:
         response = self.__get(f"/market-metrics", params=query)
         return response
 
-    def simple_order(self, order: TTOrder = None) -> bool:
-        if order is None:
-            print(f"You need to supply an order.")
-            return False
+    def simple_order(self, ticker, buy) -> bool:
+        order = TTOrder() 
+        body=order.build_simple_order(ticker, buy)
+        
+        for account in self.user_data["accounts"]:
+            response = self.__post(
+                f'/accounts/{account["account"]["account-number"]}/orders/dry-run',
+                body,
+            )
 
-        response = self.__post(
-            f'/accounts/{self.user_data["accounts"][0]["account"]["account-number"]}/orders/dry-run',
-            body=order.build_order(),
-        )
-
-        if response is None:
-            return False
+            if response is None:
+                print("Error ordering on tastytrade account " + account["account"]["account-number"])
 
         print(json.dumps(response))
         return True

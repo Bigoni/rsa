@@ -43,7 +43,7 @@ class TTOrder:
   legs: list = []
   body: dict = {}
 
-  def __init__(self, tif: TTTimeInForce = None, price: float = None,
+  def __init__(self, tif: TTTimeInForce = None, price: float = 0.0,
                 price_effect: TTPriceEffect = None, order_type: TTOrderType = None) -> None:
     self.tif = tif
     self.order_type = order_type
@@ -79,3 +79,30 @@ class TTOrder:
     }
     print(json.dumps(self.body))
     return self.body
+
+  def build_simple_order(self, ticker, buy)->dict:
+    if(buy):
+      self.add_leg( TTInstrumentType.EQUITY,ticker, 1,
+             TTLegAction.BTO)
+      self.body = {
+        'time-in-force': TTTimeInForce.DAY.value,
+        #'price': None,
+        'price-effect': TTPriceEffect.DEBIT.value,
+        'order-type': TTOrderType.MARKET.value,
+        'legs': self.legs
+      }
+      print(self.body)
+      return self.body
+
+    else:
+      self.add_leg( TTInstrumentType.EQUITY,ticker, 1,
+             TTLegAction.STC)
+      self.body = {
+        'time-in-force': TTTimeInForce.DAY.value,
+        #'price': None,
+        'price-effect': TTPriceEffect.CREDIT.value,
+        'order-type': TTOrderType.MARKET.value,
+        'legs': self.legs
+      }
+      print(self.body)
+      return self.body

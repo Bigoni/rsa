@@ -1,6 +1,6 @@
 from schwab_api import Schwab
 import pprint
-from secrets import *
+from config.secrets import secrets
 
 
 class schwabAPI:
@@ -17,7 +17,7 @@ class schwabAPI:
         self.account_info = self.api.get_account_info()
         pprint.pprint(self.account_info)
 
-    def order(self, ticker, buy):
+    def order(self, ticker, buy, test=False):
         for key in self.account_info.keys():
             print("Placing a trade for " + ticker +
                   " stock in account " + str(key))
@@ -28,7 +28,7 @@ class schwabAPI:
                     qty=1,
                     account_id=key,  # account number
                     # If dry_run=True, we won't place the order, we'll just verify it.
-                    dry_run=False
+                    dry_run=test
                 )
             else:
                 messages, success = self.api.trade(
@@ -37,7 +37,7 @@ class schwabAPI:
                     qty=1,
                     account_id=key,  # account number
                     # If dry_run=True, we won't place the order, we'll just verify it.
-                    dry_run=False
+                    dry_run=test
                 )
             print("The order verification was " +
                   "successful" if success else "unsuccessful")

@@ -1,4 +1,5 @@
-from config import *
+from config.secrets import secrets
+from config.secrets import firstrade_accounts
 from firsttrade import urls
 import asyncio
 import pyotp

@@ -1,4 +1,5 @@
-from secrets import *
+from config.secrets import secrets
+from config.secrets import tradier_accounts
 import requests
 import json
 

@@ -1,8 +1,9 @@
 import sys
+import configparser
 
-sys.path.append('../secrets')
+sys.path.append('../config')
 
-from secrets import secrets
+from config.secrets import secrets
 
 class TTConfig:
     config: configparser.ConfigParser = configparser.ConfigParser()
@@ -10,6 +11,7 @@ class TTConfig:
     use_mfa: bool = False
     username: str = None
     password: str = None
+    totp_secret: str = None
     cert_uri: str = None
     prod_uri: str = None
     cert_wss: str = None
@@ -21,6 +23,7 @@ class TTConfig:
         self.use_mfa = True
         self.username = secrets.get('tastytrade_username')
         self.password = secrets.get('tastytrade_password')
+        self.totp_secret = secrets.get('tastytrade_secret')
         self.cert_uri = "https://api.cert.tastyworks.com"
         self.prod_uri = "https://api.tastyworks.com"
         self.cert_wss = "wss://streamer.cert.tastyworks.com"

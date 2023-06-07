@@ -6,7 +6,7 @@ import pprint
 import pyotp
 from dotenv import load_dotenv
 
-from secrets import *
+from config import secrets
 
 def robinhood_init():
     # Initialize .env file
