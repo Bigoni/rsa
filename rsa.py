@@ -32,8 +32,7 @@ tradier = tradierAPI()
 for ticker in tickers:
     tradier.get_val(ticker)
 
-cont = input("You will " + option +
-             " one share of these tickers in all accounts, is that ok? Y/N ")
+cont = input(f"You will {option} one share of these tickers in all accounts, is that ok? Y/N ")
 if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
@@ -56,7 +55,7 @@ tt = tasty()
 tt.get_accounts()
 tt.order(tickers, buy)
 
-'''
+
 print("Ordering on Robinhood")   
 print("Still testing so double check on Robinhood")
 rh = robinhood.robinhood_init()
@@ -66,4 +65,4 @@ if (option == "buy"):
         asyncio.run(robinhood.robinhood_transaction(rh, option, ticker, 1, False))
 else:
     print("Skipping sell on rh because it takes an extra few days to appear")
-'''
+

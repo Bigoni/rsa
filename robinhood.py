@@ -6,7 +6,8 @@ import pprint
 import pyotp
 from dotenv import load_dotenv
 
-from config import secrets
+from config.secrets import secrets
+from config.secrets import robinhood_accounts
 
 def robinhood_init():
     # Initialize .env file
@@ -17,7 +18,7 @@ def robinhood_init():
         return None
     RH_USERNAME = secrets.get("robinhood_username")
     RH_PASSWORD = secrets.get("robinhood_password")
-    if secrets.get("robinhood_secret"):
+    if secrets.get("robinhood_secret") and secrets.get("robinhood_secret")!= "":
         RH_TOTP = secrets.get("robinhood_secret")
         totp = pyotp.TOTP(RH_TOTP).now()
     else:
@@ -83,7 +84,7 @@ async def robinhood_transaction(rh, action, stock, amount, DRY=True, ctx=None):
     print("Robinhood")
     print("==============================")
     print()
-    accounts = secrets.get('robinhood_accounts')
+    accounts = robinhood_accounts
     action = action.lower()
     stock = stock.upper()
     if amount == "all" and action == "sell":
@@ -104,11 +105,11 @@ async def robinhood_transaction(rh, action, stock, amount, DRY=True, ctx=None):
                 #rh.order_buy_market(stock, amount)
                 extendedHours=False
                 jsonify=True
-                quantity = 1
                 for account in accounts:
                     #probably can just do first 4 args and not worry about rest, test after this
-                    order(symbol, quantity, "buy", account, None, None, 'gtc', extendedHours, jsonify)
-                print("Robinhood: Bought {amount} of {stock}")
+                    #order(symbol, quantity, side, account_number=None, limitPrice=None, stopPrice=None, timeInForce='gtc', extendedHours=False, jsonify=True)
+                    rh.order(stock, amount, "buy", account)
+                    print(f"Robinhood: Bought {amount} of {stock} in {account}")
                 if ctx:
                     await ctx.send(f"Robinhood: Bought {amount} of {stock}")
             # Sell Market order

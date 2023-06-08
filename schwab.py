@@ -19,8 +19,7 @@ class schwabAPI:
 
     def order(self, ticker, buy, test=False):
         for key in self.account_info.keys():
-            print("Placing a trade for " + ticker +
-                  " stock in account " + str(key))
+            print(f"Schwab: Placing a trade for {ticker} stock in account {key}")
             if buy == True:
                 messages, success = self.api.trade(
                     ticker=ticker,
