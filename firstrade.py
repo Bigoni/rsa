@@ -16,10 +16,10 @@ accounts = firstrade_accounts
 #I probably have like 10x the amount of sleeps I need haha
     #probably should figure out how something like wait for selector would work in playwright
     
-async def login_firstrade(tickers, buy):
+async def login_firstrade(tickers, buy, head=True):
     async with async_playwright() as p:
         # Launch a new browser context
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=head)
         page = await browser.new_page()
 
         await page.goto(urls.login())

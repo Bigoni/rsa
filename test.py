@@ -73,9 +73,14 @@ if (option == "buy"):
 else:
     tt.order(tickers, False)
 '''
-
-print("Ordering on Robinhood")   
-print("Still testing so double check on Robinhood")
+'''
+'''
+print("Robinhood")   
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))
-asyncio.run(robinhood.robinhood_transaction(rh, "buy", "SCHD", 1, False) )
+'''
+asyncio.run(robinhood.robinhood_transaction(rh, "buy", "BBLG", 1, False) )
+'''
+
+#tickers = ["BOXL", "ATIP"]
+#asyncio.run(firstrade.login_firstrade(tickers, False, False))

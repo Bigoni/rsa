@@ -7,7 +7,6 @@ secrets = {
     'totp_secret': "",
 
     'tradier_token': "",
-    'tradier_account_id': "",
 
     'robinhood_username': "",
     'robinhood_password': "",

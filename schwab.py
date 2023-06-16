@@ -23,7 +23,7 @@ class schwabAPI:
             if buy == True:
                 messages, success = self.api.trade(
                     ticker=ticker,
-                    side="Buy",  # or Sell
+                    side="Buy",
                     qty=1,
                     account_id=key,  # account number
                     # If dry_run=True, we won't place the order, we'll just verify it.
@@ -32,7 +32,7 @@ class schwabAPI:
             else:
                 messages, success = self.api.trade(
                     ticker=ticker,
-                    side="Sell",  # or Sell
+                    side="Sell",
                     qty=1,
                     account_id=key,  # account number
                     # If dry_run=True, we won't place the order, we'll just verify it.

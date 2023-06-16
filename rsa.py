@@ -29,6 +29,7 @@ for i in range(2, len(sys.argv)):
     tickers.append(str(sys.argv[i]).upper())
 
 tradier = tradierAPI()
+
 for ticker in tickers:
     tradier.get_val(ticker)
 
@@ -45,19 +46,7 @@ print("Ordering on Tradier")
 for ticker in tickers:
     tradier.order(ticker, buy)
 
-print("Ordering on Firstrade")
-print("Double check on Firstrade everything is correct!")
-asyncio.run(firstrade.login_firstrade(tickers, buy))
 
-print("Ordering on TastyTrade")
-print("Just starting to test this one :)")
-tt = tasty()
-tt.get_accounts()
-tt.order(tickers, buy)
-
-
-print("Ordering on Robinhood")   
-print("Still testing so double check on Robinhood")
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))
 if (option == "buy"):
@@ -66,3 +55,15 @@ if (option == "buy"):
 else:
     print("Skipping sell on rh because it takes an extra few days to appear")
 
+print("Ordering on Firstrade")
+print("Double check on Firstrade everything is correct")
+asyncio.run(firstrade.login_firstrade(tickers, buy, False))
+
+'''
+print("Ordering on TastyTrade")
+print("Just starting to test this one :)")
+tt = tasty()
+tt.get_accounts()
+for ticker in tickers:
+    tt.order(ticker, buy)
+'''
