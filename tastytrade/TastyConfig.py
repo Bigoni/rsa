@@ -1,12 +1,12 @@
-import sys
-import configparser
+#sys.path.append('../config')
+try:
+    from config.secrets import secrets
+except ImportError:
+    import sys
+    sys.path.append(sys.path[0] + '/..')
+    from config.secrets import secrets
 
-sys.path.append('../config')
-
-from config.secrets import secrets
-
-class TTConfig:
-    config: configparser.ConfigParser = configparser.ConfigParser()
+class TastyConfig:
     use_prod: bool = False
     use_mfa: bool = False
     username: str = None
@@ -17,8 +17,7 @@ class TTConfig:
     cert_wss: str = None
     prod_wss: str = None
 
-    def __init__(self, path: str = "./config", filename: str = "tt.config") -> None:
-        self.config.read(f"{path}/{filename}")
+    def __init__(self) -> None:
         self.use_prod = True
         self.use_mfa = True
         self.username = secrets.get('tastytrade_username')

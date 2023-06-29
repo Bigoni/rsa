@@ -61,10 +61,12 @@ if (option == "buy"):
 else:
     #asyncio.run(firstrade.login_firstrade(tickers, False))
     print("Would be selling on firstrade now")
-
+'''
 print("Ordering on TastyTrade")
 tt = tasty()
 tt.get_accounts(True)
+tt.order("EAST", True, True)
+'''
 for ticker in tickers:
     tt.order(ticker, True)
 
@@ -73,12 +75,11 @@ if (option == "buy"):
 else:
     tt.order(tickers, False)
 '''
-'''
+
 '''
 print("Robinhood")   
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))
-'''
 asyncio.run(robinhood.robinhood_transaction(rh, "buy", "BBLG", 1, False) )
 '''
 

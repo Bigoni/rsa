@@ -20,6 +20,7 @@ def robinhood_init():
     RH_PASSWORD = secrets.get("robinhood_password")
     if secrets.get("robinhood_secret") and secrets.get("robinhood_secret")!= "":
         RH_TOTP = secrets.get("robinhood_secret")
+        print("Robinhood: generating TOTP")
         totp = pyotp.TOTP(RH_TOTP).now()
     else:
         totp = None

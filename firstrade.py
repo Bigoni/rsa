@@ -13,8 +13,8 @@ pin = secrets.get('firstrade_pin')
 accounts = firstrade_accounts
 
 #TODO optimize the sleeps I use
-#I probably have like 10x the amount of sleeps I need haha
-    #probably should figure out how something like wait for selector would work in playwright
+#I probably have like 10x the amount of sleeps I need lol
+    #probably should figure out how something like wait for selector works in playwright
     
 async def login_firstrade(tickers, buy, head=True):
     async with async_playwright() as p:
@@ -46,7 +46,6 @@ async def login_firstrade(tickers, buy, head=True):
                 await page.goto(urls.order())
 
                 #select account
-                #<select id="accountId1" name="accountId" value=""><option selected="" value="87848537">87848537</option><option value="91297538">91297538</option></select>
                 await page.select_option("#accountId1", value=account)
 
                 # Find the element to click
@@ -69,8 +68,3 @@ async def login_firstrade(tickers, buy, head=True):
                 time.sleep(.5)
 
         await browser.close()
-
-# Example usage: log in to Firstrade and order SEAC
-#tickers = ["SEAC"]
-#buy = True
-#asyncio.run(login_firstrade(tickers, buy))

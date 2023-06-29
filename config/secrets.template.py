@@ -28,15 +28,6 @@ secrets = {
     'tastytrade_password': "",
     #don't think this actually works, I messed up my 2fa on tasty trade
     'tastytrade_secret': "",
-
-    'chase_username': "",
-    'chase_password': "",
-
-    'merril_username': "",
-    'merril_password': "",
-
-    'stocktwits_username': "",
-    'stocktwits_password': "",
 }
 
 #Enter account numbers for each account you want to order in for these brokers
