@@ -24,9 +24,10 @@ secrets = {
     'firstrade_pin': "",
 
     'tastytrade_username': "",
-    #if your password has % you may need to enter %%
+    #if your password has % you may need to enter %% instead
     'tastytrade_password': "",
     #don't think this actually works, I messed up my 2fa on tasty trade
+    #mine works with 2fa broken so you can probably leave it blank
     'tastytrade_secret': "",
 }
 

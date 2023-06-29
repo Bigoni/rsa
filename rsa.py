@@ -46,19 +46,13 @@ print("Ordering on Tradier")
 for ticker in tickers:
     tradier.order(ticker, buy)
 
-#should change the logic to not even log in on sell
-rh = robinhood.robinhood_init()
-asyncio.run(robinhood.robinhood_holdings(rh))
 if (option == "buy"):
+    rh = robinhood.robinhood_init()
+    asyncio.run(robinhood.robinhood_holdings(rh))
     for ticker in tickers: 
         asyncio.run(robinhood.robinhood_transaction(rh, option, ticker, 1, False))
 else:
     print("Skipping sell on rh because it takes an extra few days to appear")
-
-print("Ordering on Firstrade")
-print("This one is buggy so double check on Firstrade everything is correct")
-asyncio.run(firstrade.login_firstrade(tickers, buy))
-
 
 print("Ordering on TastyTrade")
 print("Just starting to test this one :)")
@@ -66,3 +60,7 @@ tt = tasty()
 tt.get_accounts()
 for ticker in tickers:
     tt.order(ticker, buy)
+
+print("Ordering on Firstrade")
+print("This one is buggy so double check on Firstrade everything is correct")
+asyncio.run(firstrade.login_firstrade(tickers, buy))
