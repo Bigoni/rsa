@@ -62,7 +62,7 @@ class tastyAPI:
                             'quantity': 1, 'action': action})
         for account in self.accounts:
             if dry:
-                print(f"TastyTrade: Dry ordering {ticker} in {account} ")
+                print(f"TastyTrade: Dry {action} {ticker} in {account} ")
                 endpoint = __order_endpoint__.format(account_number=account)+__dry__
                 order_data = {
                     'time-in-force': 'Day',
@@ -78,14 +78,23 @@ class tastyAPI:
                 #print(response.json())
                 #could check if status is 201
             else:
-                print(f"TastyTrade: Ordering {ticker} in {account} ")
+                print(f"TastyTrade: {action} {ticker} in {account} ")
                 endpoint = __order_endpoint__.format(account_number=account)
-                order_data = {
-                    "time-in-force": "Day",
-                    "order-type": "Market",
-                    "price-effect": effect,
-                    "legs": self.legs
-                }
+                if market:
+                    order_data = {
+                        "time-in-force": "Day",
+                        "order-type": "Market",
+                        "price-effect": effect,
+                        "legs": self.legs
+                    }
+                else:
+                    order_data = {
+                        "time-in-force": "Day",
+                        "order-type": "Limit",
+                        "price": price,
+                        "price-effect": effect,
+                        "legs": self.legs
+                    }
                 response = requests.post(__base_url__ + endpoint, 
                     json=order_data,
                     headers = self.headers)

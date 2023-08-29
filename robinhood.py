@@ -125,6 +125,12 @@ async def robinhood_transaction(rh, action, stock, amount, DRY=True, ctx=None):
                     print(f"Robinhood: Sold {amount} of {stock} in {account}")
                 if ctx:
                     await ctx.send(f"Robinhood: Sold {amount} of {stock}")
+            elif action == "sell limit":
+                extendedHours=False
+                jsonify=True
+                for account in accounts:
+                    data = rh.order(stock, amount, action, account, None, None, 'gtc', False, True)
+
             else:
                 print("Error: Invalid action")
                 return None

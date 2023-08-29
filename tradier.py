@@ -58,3 +58,32 @@ class tradierAPI:
                                             'side': 'sell', 'quantity': '1', 'type': 'market', 'duration': 'day'},
                                         headers=headers
                                         )
+
+    def limit_order(self, ticker, buy, price):
+        #new version, using multiple accounts functionality
+        for account in tradier_accounts:
+            url = '{}accounts/{}/orders'.format(
+                "https://api.tradier.com/v1/", account)
+
+            headers = {
+                'Authorization': 'Bearer {}'.format(secrets.get('tradier_token')),
+                'Accept': 'application/json'
+            }
+            if (buy == True):
+                print("Buying " + ticker + " in account " +
+                    account + " on Tradier")
+                response = requests.post(url,
+                                        data={'class': 'equity', 'symbol': ticker,
+                                            'side': 'buy', 'quantity': '1', 'type': 'limit','price' :price,
+                                            'duration': 'day'},
+                                        headers=headers
+                                        )
+            else:
+                print("Selling " + ticker + " in account " +
+                    account + " on Tradier")
+                response = requests.post(url,
+                                        data={'class': 'equity', 'symbol': ticker,
+                                            'side': 'sell', 'quantity': '1', 'type': 'limit','price':price,
+                                            'duration': 'day'},
+                                        headers=headers
+                                        )

@@ -27,8 +27,12 @@ secrets = {
     #if your password has % you may need to enter %% instead
     'tastytrade_password': "",
     #don't think this actually works, I messed up my 2fa on tasty trade
-    #mine works with 2fa broken so you can probably leave it blank
+    #but mine still works with 2fa broken so you can probably leave it blank
     'tastytrade_secret': "",
+
+    'chase_username': "",
+    'chase_password': "",
+
 }
 
 #Enter account numbers for each account you want to order in for these brokers

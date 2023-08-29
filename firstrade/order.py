@@ -1,6 +1,13 @@
-from config.secrets import secrets
-from config.secrets import firstrade_accounts
-from firsttrade import urls
+try:
+    from config.secrets import secrets
+    from config.secrets import firstrade_accounts
+except ImportError:
+    import sys
+    sys.path.append(sys.path[0] + '/..')
+    from config.secrets import secrets
+    from config.secrets import firstrade_accounts
+
+from .urls import *
 import asyncio
 import pyotp
 from playwright.async_api import Playwright, async_playwright
@@ -15,14 +22,15 @@ accounts = firstrade_accounts
 #TODO optimize the sleeps I use
 #I probably have like 10x the amount of sleeps I need lol
     #probably should figure out how something like wait for selector works in playwright
-    
-async def login_firstrade(tickers, buy, head=True):
+
+#headless mode is buggy sometimes so maybe use headful mode to debug
+async def login_firstrade(tickers, buy, headless=True):
     async with async_playwright() as p:
         # Launch a new browser context
-        browser = await p.chromium.launch(headless=head)
+        browser = await p.chromium.launch(headless=headless)
         page = await browser.new_page()
 
-        await page.goto(urls.login())
+        await page.goto(login())
 
         # Fill in the login form
         await page.get_by_label("User ID").fill(username)
@@ -43,7 +51,7 @@ async def login_firstrade(tickers, buy, head=True):
 
         for ticker in tickers:
             for account in accounts:
-                await page.goto(urls.order())
+                await page.goto(order())
 
                 #select account
                 await page.select_option("#accountId1", value=account)

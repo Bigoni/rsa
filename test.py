@@ -1,10 +1,11 @@
 from tradier import tradierAPI
 from schwab import schwabAPI
 from tasty import tasty
+from firstrade import order
 import robinhood
 import asyncio
-import firstrade
 import sys
+
 '''
 if len(sys.argv) <= 2:
     print("incorrect usage ")
@@ -56,17 +57,14 @@ print("Ordering on Firstrade")
 print("Still testing this one so be careful! Double check on Firstrade everything is correct")
 #I think headful is working, need to test headless
 if (option == "buy"):
-    #asyncio.run(firstrade.login_firstrade(tickers, True))
-    print("Would be buying on firstrade now")
+    asyncio.run(order.login_firstrade(tickers, True, False))
+    #print("Would be buying on firstrade now")
 else:
-    #asyncio.run(firstrade.login_firstrade(tickers, False))
-    print("Would be selling on firstrade now")
-'''
-print("Ordering on TastyTrade")
-tt = tasty()
-tt.get_accounts(True)
-tt.order("EAST", True, True)
-'''
+    asyncio.run(order.login_firstrade(tickers, False, False))
+    #print("Would be selling on firstrade now")
+
+
+
 for ticker in tickers:
     tt.order(ticker, True)
 
@@ -76,12 +74,12 @@ else:
     tt.order(tickers, False)
 '''
 
-'''
+
 print("Robinhood")   
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))
-asyncio.run(robinhood.robinhood_transaction(rh, "buy", "BBLG", 1, False) )
-'''
+#asyncio.run(robinhood.robinhood_transaction(rh, "buy", "BBLG", 1, False) )
+
 
 #tickers = ["BOXL", "ATIP"]
 #asyncio.run(firstrade.login_firstrade(tickers, False, False))

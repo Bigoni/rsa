@@ -14,9 +14,16 @@ Feature Ideas:
     Chase
     Merill
     stocktwits
-    Public
-    WellsTrade   
-->limit orders
+    WellsFargo
+    Autoshares (have to finish opening account, they have an API tho)
+
+    Maybe brokers:
+    Public (only ever used the mobile app)
+    Webull (only used mobile app and annoying buy 100 requirement)
+    Citi (account must be open for 90 days)
+    T.Rowe (2fa is annoying)
+    others with mobile app only  
+->limit orders (especially useful for sell)
 ->better sell logic
 ->discord bot integration
 ->accounting for p/l (put buy/sell prices into a db or file)
