@@ -36,8 +36,9 @@ cont = input("You will " + option +
 if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
-
+'''
 schwab = schwabAPI()
+'''
 for ticker in tickers:
     if (option == "buy"):
         schwab.order(ticker, True, True)
@@ -74,12 +75,12 @@ else:
     tt.order(tickers, False)
 '''
 
-
+'''
 print("Robinhood")   
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))
 #asyncio.run(robinhood.robinhood_transaction(rh, "buy", "BBLG", 1, False) )
-
+'''
 
 #tickers = ["BOXL", "ATIP"]
 #asyncio.run(firstrade.login_firstrade(tickers, False, False))

@@ -31,6 +31,8 @@ class tradierAPI:
               " Bid: " + str(fmt.get('quotes').get('quote').get('bid')))
         print(fmt.get('quotes').get('quote').get('symbol') +
               " Ask: " + str(fmt.get('quotes').get('quote').get('ask')))
+        print(fmt.get('quotes').get('quote').get('symbol') +
+              " Last: " + str(fmt.get('quotes').get('quote').get('last')))
 
     def order(self, ticker, buy):
         #new version, using multiple accounts functionality

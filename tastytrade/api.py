@@ -58,6 +58,7 @@ class tastyAPI:
             action = 'Sell to Close'
             effect = 'Credit'
         #could have multiple ticker logic to limit API calls, not worth implementing now
+            # multiple legs not allowed for market orders anyways
         self.legs.append({'instrument-type': 'Equity','symbol': ticker,
                             'quantity': 1, 'action': action})
         for account in self.accounts:
@@ -98,5 +99,7 @@ class tastyAPI:
                 response = requests.post(__base_url__ + endpoint, 
                     json=order_data,
                     headers = self.headers)
-                #print(response)
-                #print(response.json())
+                '''
+                print("API response for debugging: ")
+                print(response.json())
+                '''

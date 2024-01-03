@@ -15,12 +15,11 @@ Feature Ideas:
     Merill
     stocktwits
     WellsFargo
-    Autoshares (have to finish opening account, they have an API tho)
 
     Maybe brokers:
     Public (only ever used the mobile app)
     Webull (only used mobile app and annoying buy 100 requirement)
-    Citi (account must be open for 90 days)
+    Citi
     T.Rowe (2fa is annoying)
     others with mobile app only  
 ->limit orders (especially useful for sell)

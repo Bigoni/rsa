@@ -75,7 +75,6 @@ if(use_robinhood):
 
 
 print("Ordering on TastyTrade")
-print("Just starting to test this one :)")
 tt = tasty()
 tt.get_accounts()
 for ticker in tickers:

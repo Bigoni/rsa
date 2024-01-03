@@ -3,4 +3,5 @@ def login():
 
 
 def order():
-    return "https://secure09ea.chase.com/web/auth/dashboard#/dashboard/trade/equity/entry;ai=select-account;sym="
+    return "https://secure09ea.chase.com/web/auth/dashboard#/dashboard/oi-trade/equity/entry"
+

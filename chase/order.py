@@ -47,20 +47,43 @@ async def login_chase(tickers, buy, headless=True):
         await submit_button.click()
         #ask for input from user to confirm you did 2fa
         user_code = input("Confirm on the chase app, enter something when it's approved: ")
-        time.sleep(1)
+        time.sleep(3)
         accounts = {"Self-Directed (...1884)", "Self-Directed-Ret (...3938)"}
         for account in accounts:
             for ticker in tickers:
                 print(f"Chase: ordering {ticker} in {account}")
                 await page.goto(urls.order())
-                #<input type="button" id="header-accountDropDown" name="" form="" class="jpui input header focus-on-header wrap right text-float-left account-dropDown-styled-select" aria-haspopup="true" aria-disabled="false" aria-expanded="true" aria-label="  Filter by account, updates content below: Select Account" value="Select Account">
-                #<ul class="list" id="ul-list-container-accountDropDown" role="listbox"><li role="presentation"><a class="option js-option STYLED_SELECT" id="container-0-accountDropDown" href="javascript:void(0);" rel="" role="option" aria-setsize="4" aria-posinset="1" tabindex="0"><span class="primary" id="container-primary-0-accountDropDown">Select Account</span><span class="secondary" id="container-secondary-0-accountDropDown"> </span><span class="util accessible-text" id="option-accessible-0-accountDropDown">   </span></a></li><li role="presentation"><a class="option js-option STYLED_SELECT" id="container-1-accountDropDown" href="javascript:void(0);" rel="" role="option" aria-setsize="4" aria-posinset="2" tabindex="0"><span class="primary" id="container-primary-1-accountDropDown">Self-Directed (...1884)</span><span class="secondary" id="container-secondary-1-accountDropDown"> </span><span class="util accessible-text" id="option-accessible-1-accountDropDown">   </span></a></li><li role="presentation"><a class="option js-option STYLED_SELECT" id="container-2-accountDropDown" href="javascript:void(0);" rel="" role="option" aria-setsize="4" aria-posinset="3" tabindex="0"><span class="primary" id="container-primary-2-accountDropDown">Self-Directed-Ret (...3938)</span><span class="secondary" id="container-secondary-2-accountDropDown"> </span><span class="util accessible-text" id="option-accessible-2-accountDropDown">   </span></a></li><li role="presentation"><a class="option js-option STYLED_SELECT" id="container-3-accountDropDown" href="javascript:void(0);" rel="" role="option" aria-setsize="4" aria-posinset="4" tabindex="0"><span class="primary" id="container-primary-3-accountDropDown">Self-Directed-Ret (...9399)</span><span class="secondary" id="container-secondary-3-accountDropDown"> </span><span class="util accessible-text" id="option-accessible-3-accountDropDown">   , you've reached the end of the menu</span></a></li></ul>
                 time.sleep(1)
+                #<a class="list-item__navigational list-item__navigational--divider" href="javascript:void(0)" aria-label="Self-Directed (...1884)"><span class="list-item__navigational-icon" aria-hidden="true" __skip="true"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="inherit" d="M15.835 43.949a2.974 2.974 0 01-2.001-5.175l16.244-14.77L13.834 9.238a2.974 2.974 0 114-4.4L36.5 21.806a2.974 2.974 0 010 4.402L17.835 43.177a2.967 2.967 0 01-2 .772z"></path></svg></span></a>
+                print("going to '[aria-label={account}]'")
+                account_button = await page.query_selector('[aria-label="{account}"]')
+                await account_button.click()
+                
+                #<input class="mds-text-input__input mds-text-input__input--leading-icon mds-text-input__input--line" id="symbolLookupInput-input" placeholder="Search" autocomplete="off" type="text">
+                ticker_input = await page.wait_for_selector('#symbolLookupInput-input')
+                await ticker_input.fill(ticker)
+                time.sleep(1)
+                await input_element.press('Enter')
+                time.sleep(.5)
+                #<a class="list-item__navigational list-item__navigational--divider" href="javascript:void(0)" aria-label="Market order"><span class="list-item__navigational-icon" aria-hidden="true" __skip="true"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="inherit" d="M15.835 43.949a2.974 2.974 0 01-2.001-5.175l16.244-14.77L13.834 9.238a2.974 2.974 0 114-4.4L36.5 21.806a2.974 2.974 0 010 4.402L17.835 43.177a2.967 2.967 0 01-2 .772z"></path></svg></span></a>
+                market_order = await page.query_selector('[aria-label="Market order"]')
+                await market_order.click()
+
+                #<input class="mds-text-input__input mds-text-input__input--error mds-text-input__input--hero mds-text-input__input--line" id="orderQuantity-input" placeholder="0" name="orderQuantity" autocomplete="off" type="text" aria-describedby="orderQuantity-error-text0 " aria-invalid="true">
+                time.sleep(1)
+                order_quantity_element = await page.query_selector('#orderQuantity-input')
+                await order_quantity_element.fill('1')
+
+                #<button type="button" class="button button--primary button--fluid" tabindex="0"><span class="button__label">Preview</span></button>
+                time.sleep(.5)
+                preview_button = await page.query_selector('button.button--primary')
+                await preview_button.click()
+                '''
                 account_dropdown_button = await page.wait_for_selector('#header-accountDropDown')
                 await account_dropdown_button.click()
                 account_option = await page.wait_for_selector(f'#container-primary-1-accountDropDown:has-text("{account}")')
                 await account_option.click()
-                #<input min="0" class="jpui input validation__error" id="equitySymbolLookup-block-autocomplete-validate-input-field" placeholder="Get a quote" format="" aria-describedby="equitySymbolLookup-block-autocomplete-validate-placeHolderAdaText" autocomplete="off" type="text" value="" aria-invalid="true">
+                #<input class="mds-text-input__input mds-text-input__input--leading-icon mds-text-input__input--line" id="symbolLookupInput-input" placeholder="Search" autocomplete="off" type="text">
                 ticker_input = await page.wait_for_selector('#equitySymbolLookup-block-autocomplete-validate-input-field')
                 await ticker_input.fill(ticker)
                 time.sleep(4)
@@ -87,6 +110,7 @@ async def login_chase(tickers, buy, headless=True):
                 time.sleep(1)
                 preview_button = await page.wait_for_selector('button.button--primary')
                 await preview_button.click()
+                '''
                 time.sleep(10)
         time.sleep(30)
         await browser.close()
