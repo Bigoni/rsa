@@ -23,11 +23,12 @@ if (sys.argv[1] in {"b", "B"}):
     option = "buy"
 elif (sys.argv[1] in {"sl", "SL"}):
     option = "sell limit"
+    buy = False
 else:
     option = "sell"
     buy = False
 tickers = []
-use_robinhood = false
+use_robinhood = False
 price = 0.0
 if option == "sell limit":
     print(option)
@@ -37,7 +38,7 @@ if option == "sell limit":
         print("for sell limit argv[2] must be parceable as a float")
     for i in range(3, len(sys.argv)):
         tickers.append(str(sys.argv[i]).upper())
-    print(f"price: {price}")
+    print(f"Price: {price}")
     #print("haven't finished implementing limit orders yet")
     #exit()
 else:

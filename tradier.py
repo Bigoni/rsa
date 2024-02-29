@@ -80,6 +80,7 @@ class tradierAPI:
                                             'duration': 'day'},
                                         headers=headers
                                         )
+                print("tradier response: " + str(response))
             else:
                 print("Selling " + ticker + " in account " +
                     account + " on Tradier")
@@ -89,3 +90,4 @@ class tradierAPI:
                                             'duration': 'day'},
                                         headers=headers
                                         )
+                print("tradier response: " + str(response))

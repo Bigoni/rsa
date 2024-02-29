@@ -6,7 +6,7 @@ import robinhood
 import asyncio
 import sys
 
-'''
+
 if len(sys.argv) <= 2:
     print("incorrect usage ")
     print("Usage:python rsa.py (b/s) Ticker1 Ticker2 ...")
@@ -37,8 +37,8 @@ if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
 '''
-schwab = schwabAPI()
-'''
+#schwab = schwabAPI()
+
 for ticker in tickers:
     if (option == "buy"):
         schwab.order(ticker, True, True)
@@ -53,7 +53,7 @@ for ticker in tickers:
     else:
         #tradier.order(ticker, False)
         print("Would be selling on Tradier now")
-
+'''
 print("Ordering on Firstrade")
 print("Still testing this one so be careful! Double check on Firstrade everything is correct")
 #I think headful is working, need to test headless
@@ -64,7 +64,7 @@ else:
     asyncio.run(order.login_firstrade(tickers, False, False))
     #print("Would be selling on firstrade now")
 
-
+'''
 
 for ticker in tickers:
     tt.order(ticker, True)

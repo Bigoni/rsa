@@ -40,12 +40,26 @@ async def login_firstrade(tickers, buy, headless=True):
         await page.get_by_role("button").click()
         time.sleep(1)
 
+        # Click verify another way
+        await page.click(".text-azure")
+        time.sleep(1)
+
+        # <input type="password" title="PIN" name="pin" id="pin" data-msg-minlength="Please enter 4 digits." class="h-11 w-full border border-slate-300 border-solid rounded text-zinc-700 bg-transparent flex px-2 py-1.5 transition-colors placeholder:text-gray-700 placeholder:opacity-50 outline-none text-sm" required="" minlength="4" maxlength="4" data-mask="0000" autocomplete="off">
+        await page.get_by_title("PIN").fill(pin)
+        # <button type="submit" class="w-full h-12 px-4 py-3 bg-azure rounded justify-center items-center flex text-center text-white text-base font-bold leading-snug border-0 cursor-pointer hover:opacity-90 disabled:pointer-events-none disabled:opacity-50">Continue</button>
+        time.sleep(1)
+        await page.click(".bg-azure")
+
+        
+        '''
+        old 2fa form
         # Wait for the dashboard to load
         for digit in str(pin):
             await page.get_by_title(digit).click()
 
         #<div class="keypad" id="submit"></div>
         await page.click("#submit.keypad")
+        '''
 
         time.sleep(1)
 

@@ -40,9 +40,9 @@ if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
 
-schwab = schwabAPI()
-for ticker in tickers:
-    schwab.order(ticker, buy)
+# schwab = schwabAPI()
+#for ticker in tickers:
+    #schwab.order(ticker, buy)
 
 print("Ordering on Tradier")
 for ticker in tickers:
@@ -73,4 +73,4 @@ for ticker in tickers:
 
 print("Ordering on Firstrade")
 print("This one is buggy so double check on Firstrade everything is correct")
-asyncio.run(order.login_firstrade(tickers, buy))
+asyncio.run(order.login_firstrade(tickers, buy, False))
