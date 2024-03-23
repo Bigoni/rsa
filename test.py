@@ -36,15 +36,15 @@ cont = input("You will " + option +
 if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
-'''
-#schwab = schwabAPI()
+
+schwab = schwabAPI()
 
 for ticker in tickers:
     if (option == "buy"):
         schwab.order(ticker, True, True)
     else:
         schwab.order(ticker, False, True)
-
+'''
 print("Ordering on Tradier")
 for ticker in tickers:
     if (option == "buy"):
@@ -53,7 +53,7 @@ for ticker in tickers:
     else:
         #tradier.order(ticker, False)
         print("Would be selling on Tradier now")
-'''
+
 print("Ordering on Firstrade")
 print("Still testing this one so be careful! Double check on Firstrade everything is correct")
 #I think headful is working, need to test headless
@@ -64,7 +64,7 @@ else:
     asyncio.run(order.login_firstrade(tickers, False, False))
     #print("Would be selling on firstrade now")
 
-'''
+
 
 for ticker in tickers:
     tt.order(ticker, True)
@@ -73,9 +73,9 @@ if (option == "buy"):
     tt.order(tickers, True)
 else:
     tt.order(tickers, False)
-'''
 
-'''
+
+
 print("Robinhood")   
 rh = robinhood.robinhood_init()
 asyncio.run(robinhood.robinhood_holdings(rh))

@@ -1,6 +1,7 @@
 from config.secrets import secrets
 from config.secrets import tradier_accounts
 import requests
+import pprint
 import json
 
 
@@ -91,3 +92,14 @@ class tradierAPI:
                                         headers=headers
                                         )
                 print("tradier response: " + str(response))
+
+    def positions(self):
+        for account in tradier_accounts:
+            url = '{}accounts/{}/positions'.format(
+                "https://api.tradier.com/v1/", account)
+            headers = {
+                'Authorization': 'Bearer {}'.format(secrets.get('tradier_token')),
+                'Accept': 'application/json'
+            }
+            response = requests.get(url,headers=headers)
+            pprint.pprint(response.json())

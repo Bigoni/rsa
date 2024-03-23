@@ -40,9 +40,9 @@ if cont not in {"Y", "y"}:
     print("Exiting")
     exit()
 
-# schwab = schwabAPI()
-#for ticker in tickers:
-    #schwab.order(ticker, buy)
+schwab = schwabAPI()
+for ticker in tickers:
+    schwab.order(ticker, buy)
 
 print("Ordering on Tradier")
 for ticker in tickers:
@@ -55,22 +55,20 @@ if (option == "buy"):
         asyncio.run(robinhood.robinhood_transaction(rh, option, ticker, 1, False))
 else:
     print("Skipping sell on rh because it takes an extra few days to appear")
-
+'''
 print("Ordering on TastyTrade")
 tt = tasty()
 tt.get_accounts()
 # if you place multiple orders to the same account quickly TT considers it separate legs which isn't allowed
 # Example API log:
-'''
-    {'error': {'code': 'preflight_check_failure', 'message': 'One or more preflight checks failed', 'errors': [{'code': 'spread_market_order_check_failed', 'message': 'Orders with 2 or more legs cannot be placed as "Market" orders.'}, {'code': 'multiple_equity_legs_invalid', 'message': 'Orders may not have multiple equity legs.'}, {'code': 'invalid_combined_option_stock_amount', 'message': 'Order contains equity leg and more than one option leg'}]}}
-'''
+    #{'error': {'code': 'preflight_check_failure', 'message': 'One or more preflight checks failed', 'errors': [{'code': 'spread_market_order_check_failed', 'message': 'Orders with 2 or more legs cannot be placed as "Market" orders.'}, {'code': 'multiple_equity_legs_invalid', 'message': 'Orders may not have multiple equity legs.'}, {'code': 'invalid_combined_option_stock_amount', 'message': 'Order contains equity leg and more than one option leg'}]}}
 # to try and fix this, I put a sleep, lets see if it works
 # don't really need it on first iteration, should do something like i,member in enumerate(tickers)
 for ticker in tickers:
     tt.order(ticker, buy)
     if (len(tickers) > 1):
         time.sleep(5)
-
+'''
 print("Ordering on Firstrade")
 print("This one is buggy so double check on Firstrade everything is correct")
-asyncio.run(order.login_firstrade(tickers, buy, False))
+asyncio.run(order.login_firstrade(tickers, buy))
