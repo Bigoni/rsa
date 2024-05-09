@@ -5,6 +5,7 @@ TODO: Add steps for how to use this project, setup, etc.
 For the robin_stocks dependency you need 3.0.0 (or greater)
 
 Feature Ideas:
+    
     Implement more brokers:
     Fidelity
     Vanguard
